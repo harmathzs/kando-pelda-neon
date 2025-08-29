@@ -1,15 +1,24 @@
 import { neon } from '@netlify/neon';
 
 export const handler = async () => {
-    const sql = neon(); // automatically uses env NETLIFY_DATABASE_URL
+  try {
+    const sql = neon();
     const catId = 1;
     const [post] = await sql`SELECT * FROM cats WHERE id = ${catId}`;
-
     return {
-        statusCode: 200,
-        body: JSON.stringify({
-            message: 'Hello Neon-DB!',
-            'QueryResult': post,
-        }),
-    }
-}
+      statusCode: 200,
+      body: JSON.stringify({
+        message: 'Hello Neon-DB!',
+        QueryResult: post,
+      }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: 'Error querying Neon-DB',
+        error: error.message || String(error),
+      }),
+    };
+  }
+};
