@@ -5,6 +5,11 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [dataNeon, setDataNeon] = useState({});
+
+  const handleGetNeonButton = e => {
+    console.log('handleGetNeonButton e', e);
+  }
 
   return (
     <>
@@ -28,6 +33,12 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <p className="card">
+        <button onClick={handleGetNeonButton}>GET neon</button>
+      </p>      
+      <p className="card">
+        {JSON.stringify(dataNeon)}
+      </p>       
     </>
   )
 }
