@@ -10,7 +10,10 @@ function App() {
   const handleGetNeonButton = e => {
     console.log('handleGetNeonButton e', e);
     fetch('/.netlify/functions/neon-db')
-    .then(console.log)
+    .then(res=>res.json())
+    .then(res => {
+      setDataNeon(JSON.stringify(res));
+    })
     .catch(console.warn)
     .finally(()=>{});
   }
